@@ -1,0 +1,10 @@
+name : Node Information
+on: 
+  push: 
+jobs: 
+  info: 
+    runs-on: ubuntu-latest
+
+    steps: 
+      - name: Show Node Versions
+        run: node --version 
