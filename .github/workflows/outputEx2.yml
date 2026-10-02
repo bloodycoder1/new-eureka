@@ -1,0 +1,31 @@
+name: Output Example
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    outputs:
+      app-version: ${{ steps.version.outputs.version }}
+
+    steps:
+      - name: Get Versions
+        id: version
+        run: |
+          echo "version=1.2.3" >> "$GITHUB_OUTPUT"
+          echo "Step output:"
+          cat "$GITHUB_OUTPUT"
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show Versions
+        run: |
+          echo "All build outputs:"
+          echo '${{ toJSON(needs.build.outputs) }}'
+          echo "App version:"
+          echo "${{ needs.build.outputs.app-version }}"
