@@ -1,0 +1,35 @@
+name : Testing the JS With the JEST
+on: 
+  push:
+jobs: 
+    setup: 
+      runs-on: ubuntu-latest
+
+      steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+          - name: Setup Node
+            uses: actions/setup-node@v4
+            with:
+              node-version: 22
+          - name: Getting Node Versions
+            run: node --version 
+          - name: Install Dependencies
+            run: npm ci 
+          - name: Test Code 
+            run: npm test 
+    build:
+      needs: setup
+      runs-on: ubuntu-latest 
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4 
+
+        - name: Setup node 
+          uses: actions/setup-node@v4 
+          with:
+            node-version: 22
+        - name: Install Dependencies
+          run: npm ci
+        - name: Build 
+          run: echo "WE are Just Building the App"
