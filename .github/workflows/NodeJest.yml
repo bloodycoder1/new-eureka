@@ -16,8 +16,20 @@ jobs:
             run: node --version 
           - name: Install Dependencies
             run: npm ci 
+          
+          - name: The Success Statement
+            if: success()
+            run: echo " This will work with the sucess"  
+
           - name: Test Code 
             run: npm test 
+          - name: Handle failure
+            if: failure()
+            run: echo "This is the Error We have GOT"
+
+          - name: always will work 
+            if: always()
+            run: echo "This is going to run always"
     build:
       needs: setup
       runs-on: ubuntu-latest 
